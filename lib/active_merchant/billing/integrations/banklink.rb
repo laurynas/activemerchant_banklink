@@ -5,13 +5,28 @@ module ActiveMerchant #:nodoc:
     module Integrations #:nodoc:
       module Banklink
 
-        # Define sender id (VK_SND_ID) to bank module mappings.
-        def self.get_class(vk_snd_id)
-          case vk_snd_id
+        # Detect bank module from params
+        def self.get_class(params)
+          case params['VK_SND_ID']
             when 'EYP' then SebEst
             when 'SAMPOPANK' then SampoEst
-            when 'HP' then SwedbankEst
-            else raise(ArgumentError, "unknown sender id: #{vk_snd_id}")
+
+      			#when '70440' then SebLtu
+            #when 'SMPOLT22' then DanskeLtu
+            #when 'SNORLT22' then SnorasLtu
+            #when '112029720' then DnbnordLtu
+            #when '70100' then UbLtu            
+			
+            # Swedbank uses same sender id for different countries
+            # detect country from account
+            when 'HP' then 
+			        case params['VK_ACC'].slice(0,2)
+                when 'LT' then SwedbankLtu
+                else SwedbankEst
+              end
+
+
+            else raise(ArgumentError, "unknown sender id: #{params['VK_SND_ID']}")
           end
         end
 
@@ -57,6 +72,20 @@ module ActiveMerchant #:nodoc:
             'VK_REF',
             'VK_MSG',
             'VK_T_DATE'],
+          1201 => [
+            'VK_SERVICE',
+            'VK_VERSION',
+            'VK_SND_ID',
+            'VK_REC_ID',
+            'VK_STAMP',
+            'VK_AMOUNT',
+            'VK_CURR',
+            'VK_REC_ACC',
+            'VK_REC_NAME',
+            'VK_SND_ACC',
+            'VK_SND_NAME',
+            'VK_REF',
+            'VK_MSG'],
           1901 => [
             'VK_SERVICE',
             'VK_VERSION',

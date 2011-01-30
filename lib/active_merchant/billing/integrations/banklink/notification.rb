@@ -8,7 +8,7 @@ module ActiveMerchant #:nodoc:
           # the right Notification subclass based on the sender id.
           def self.get_notification(http_raw_data)
             params = ActiveMerchant::Billing::Integrations::Notification.new(http_raw_data).params
-            Banklink.get_class(params['VK_SND_ID'])::Notification.new(params)
+            Banklink.get_class(params)::Notification.new(params)
           end
 
           def bank_signature_valid?(bank_signature, service_msg_number, sigparams)
@@ -18,7 +18,11 @@ module ActiveMerchant #:nodoc:
           def complete?
             params['VK_SERVICE'] == '1101'
           end
-
+          
+          def wait?
+            params['VK_SERVICE'] == '1201'
+          end
+          
           def currency
             params['VK_CURR']
           end
