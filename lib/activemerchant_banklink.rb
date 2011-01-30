@@ -1,5 +1,5 @@
 require 'active_merchant'
-require 'active_merchant/billing/integrations/pizza'
+require 'active_merchant/billing/integrations/banklink'
 require 'active_merchant/billing/integrations/swedbank_est'
 require 'active_merchant/billing/integrations/seb_est'
 require 'active_merchant/billing/integrations/sampo_est'

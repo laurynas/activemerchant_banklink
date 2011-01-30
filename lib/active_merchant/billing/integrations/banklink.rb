@@ -1,9 +1,9 @@
-require 'active_merchant/billing/integrations/pizza/helper.rb'
-require 'active_merchant/billing/integrations/pizza/notification.rb'
+require 'active_merchant/billing/integrations/banklink/helper.rb'
+require 'active_merchant/billing/integrations/banklink/notification.rb'
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     module Integrations #:nodoc:
-      module Pizza
+      module Banklink
 
         # Define sender id (VK_SND_ID) to bank module mappings.
         def self.get_class(vk_snd_id)
@@ -94,7 +94,7 @@ module ActiveMerchant #:nodoc:
           # '003val1003val2006value3'
           def generate_data_string(service_msg_number, sigparams)
             str = ''
-            Pizza.required_service_params[Integer(service_msg_number)].each do |param|
+            Banklink.required_service_params[Integer(service_msg_number)].each do |param|
               val = sigparams[param].to_s # nil goes to ''
               str << func_p(val) << val
             end

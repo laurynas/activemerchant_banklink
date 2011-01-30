@@ -3,8 +3,8 @@ module ActiveMerchant #:nodoc:
     module Integrations #:nodoc:
       module SampoEst #:nodoc:
         class Helper < ActiveMerchant::Billing::Integrations::Helper #:nodoc:
-          include Pizza::Common
-          include Pizza::Helper
+          include Banklink::Common
+          include Banklink::Helper
 
           def vk_charset
             'ISO-8859-4'

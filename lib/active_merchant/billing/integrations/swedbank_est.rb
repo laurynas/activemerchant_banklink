@@ -38,7 +38,7 @@ module ActiveMerchant #:nodoc:
       #
       #     def notify
       #       # Notification class is automatically fetched based on the request parameters.
-      #       notify = Pizza::Notification.get_notification(params)
+      #       notify = Banklink::Notification.get_notification(params)
       #
       #       if notify.acknowledge
       #         ... process order ... if notify.complete?

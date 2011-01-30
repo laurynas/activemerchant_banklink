@@ -1,14 +1,14 @@
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     module Integrations #:nodoc:
-      module Pizza
+      module Banklink
         module Notification
 
           # A helper method to parse the raw post of the request & return
           # the right Notification subclass based on the sender id.
           def self.get_notification(http_raw_data)
             params = ActiveMerchant::Billing::Integrations::Notification.new(http_raw_data).params
-            Pizza.get_class(params['VK_SND_ID'])::Notification.new(params)
+            Banklink.get_class(params['VK_SND_ID'])::Notification.new(params)
           end
 
           def bank_signature_valid?(bank_signature, service_msg_number, sigparams)

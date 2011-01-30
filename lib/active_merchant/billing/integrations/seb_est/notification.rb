@@ -3,8 +3,8 @@ module ActiveMerchant #:nodoc:
     module Integrations #:nodoc:
       module SebEst #:nodoc:
         class Notification < ActiveMerchant::Billing::Integrations::Notification #:nodoc:
-          include Pizza::Common
-          include Pizza::Notification
+          include Banklink::Common
+          include Banklink::Notification
         end
       end
     end

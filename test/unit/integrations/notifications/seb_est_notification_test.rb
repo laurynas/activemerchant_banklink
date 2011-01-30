@@ -47,11 +47,11 @@ class SebEstNotificationTest < Test::Unit::TestCase
   include ActiveMerchant::Billing::Integrations
 
   def setup
-    @seb_est = Pizza::Notification.get_notification(http_raw_data)
+    @seb_est = Banklink::Notification.get_notification(http_raw_data)
   end
 
-  def test_get_notification_class_from_pizza
-    notify_class = Pizza::Notification.get_notification(http_raw_data)
+  def test_get_notification_class_from_banklink
+    notify_class = Banklink::Notification.get_notification(http_raw_data)
     assert notify_class.is_a?(ActiveMerchant::Billing::Integrations::SebEst::Notification)
   end
 
@@ -75,7 +75,7 @@ class SebEstNotificationTest < Test::Unit::TestCase
   end
 
   def test_acknowledgement_fail_with_params_changed
-    @seb_est_wrong = Pizza::Notification.get_notification(http_raw_data.gsub('VK_AMOUNT=33', 'VK_AMOUNT=100'))
+    @seb_est_wrong = Banklink::Notification.get_notification(http_raw_data.gsub('VK_AMOUNT=33', 'VK_AMOUNT=100'))
     assert_equal false, @seb_est_wrong.acknowledge
   end
 

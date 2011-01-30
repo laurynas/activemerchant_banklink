@@ -1,7 +1,7 @@
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     module Integrations #:nodoc:
-      module Pizza #:nodoc:
+      module Banklink #:nodoc:
         module Helper #:nodoc:
 
           def self.included(base)
@@ -25,7 +25,7 @@ module ActiveMerchant #:nodoc:
           def initialize(order, account, options = {})
             old_valid_keys = [:amount, :currency, :test]
             new_valid_keys = [:description, :reference]
-            valid_keys = (old_valid_keys + new_valid_keys + Pizza.required_service_params.values << :service_msg_number).uniq
+            valid_keys = (old_valid_keys + new_valid_keys + Banklink.required_service_params.values << :service_msg_number).uniq
             options.assert_valid_keys(valid_keys)
 
             @options = options
@@ -73,7 +73,7 @@ module ActiveMerchant #:nodoc:
           end
 
           def add_required_params
-            required_params = Pizza.required_service_params[@service_msg_number]
+            required_params = Banklink.required_service_params[@service_msg_number]
             required_params.each do |param|
               param_value = (@options.delete(param) || send(param.to_s.downcase)).to_s
               add_field param, iconv.iconv(param_value)
