@@ -21,7 +21,7 @@ Installation from RubyGems
 
 You can check out the latest source from git:
 
-  git pull git://github.com/laurynas/activemerchant_banklink.git
+  git clone git://github.com/laurynas/activemerchant_banklink.git
 
 == Testing
 
