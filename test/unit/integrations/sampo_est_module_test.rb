@@ -4,6 +4,7 @@ class SampoEstModuleTest < Test::Unit::TestCase
   include ActiveMerchant::Billing::Integrations
 
   def test_notification_method
-    assert_instance_of SampoEst::Notification, SampoEst.notification({'name' => 'cody'})
+#    assert_instance_of SampoEst::Notification, SampoEst.notification({'name' => 'cody'})
+    assert_instance_of SampoEst::Notification, SampoEst.notification('name=cody')
   end
 end

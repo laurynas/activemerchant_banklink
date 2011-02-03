@@ -6,29 +6,26 @@ module ActiveMerchant #:nodoc:
       module Banklink
 
         # Detect bank module from params
-        def self.get_class(params)
-          case params['VK_SND_ID']
-            when 'EYP' then SebEst
-            when 'SAMPOPANK' then SampoEst
+        #def self.get_class(params)
+        #  case params['VK_SND_ID']
+        #    when 'EYP' then SebEst
+        #    when 'SAMPOPANK' then SampoEst
+        #    when 'HP' then SwedbankEst
 
+			      # Swedbank uses same sender id for different countries, currently can't detect Lithuanian
+            # use:
+            #   notify = SwedbankLtu::Notification.new(params)
+            #when 'HP' then SwedbankLtu
+            
       			#when '70440' then SebLtu
             #when 'SMPOLT22' then DanskeLtu
             #when 'SNORLT22' then SnorasLtu
             #when '112029720' then DnbnordLtu
             #when '70100' then UbLtu            
 			
-            # Swedbank uses same sender id for different countries
-            # detect country from account
-            when 'HP' then 
-			        case params['VK_ACC'].slice(0,2)
-                when 'LT' then SwedbankLtu
-                else SwedbankEst
-              end
-
-
-            else raise(ArgumentError, "unknown sender id: #{params['VK_SND_ID']}")
-          end
-        end
+        #    else raise(ArgumentError, "unknown sender id: #{params['VK_SND_ID']}")
+        #  end
+        #end
 
         # Define required fields for each service message.
         # We need to know this in order to calculate VK_MAC

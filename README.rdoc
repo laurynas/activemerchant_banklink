@@ -1,10 +1,13 @@
 = Active Merchant Banklink
 
-WARNING: this is an early release. THINGS WILL CHANGE.
-
 This library adds Banklink payment integration support to {ActiveMerchant}[http://activemerchant.org].
 
 Gem is originally based on ActiveMerchant {fork}[https://github.com/indrekj/active_merchant] by Indrek Juhkam.
+
+== Supported banks
+
+ Swedbank (Estonia, Lithuania)
+ SEB (Estonia)
 
 == Installation
 
@@ -12,19 +15,19 @@ Gem is originally based on ActiveMerchant {fork}[https://github.com/indrekj/acti
 
 Installation from RubyGems
 
-  > gem install activemerchant_banklink
+  gem install activemerchant_banklink
 
 === From Git
 
 You can check out the latest source from git:
 
-  > git pull git://github.com/laurynas/activemerchant_banklink.git
+  git pull git://github.com/laurynas/activemerchant_banklink.git
 
 == Testing
 
 You can run the tests from this gem with (inside the activemerchant_banklink directory):
 
-  > rake test
+  rake test
 
 == Maintainer
 

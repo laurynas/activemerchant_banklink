@@ -6,10 +6,10 @@ module ActiveMerchant #:nodoc:
 
           # A helper method to parse the raw post of the request & return
           # the right Notification subclass based on the sender id.
-          def self.get_notification(http_raw_data)
-            params = ActiveMerchant::Billing::Integrations::Notification.new(http_raw_data).params
-            Banklink.get_class(params)::Notification.new(params)
-          end
+          #def self.get_notification(http_raw_data)
+          #  params = ActiveMerchant::Billing::Integrations::Notification.new(http_raw_data).params
+          #  Banklink.get_class(params)::Notification.new(http_raw_data)
+          #end
 
           def bank_signature_valid?(bank_signature, service_msg_number, sigparams)
             self.class.parent.get_bank_public_key.verify(OpenSSL::Digest::SHA1.new, bank_signature, generate_data_string(service_msg_number, sigparams))
@@ -23,6 +23,10 @@ module ActiveMerchant #:nodoc:
             params['VK_SERVICE'] == '1201'
           end
           
+          def failed?
+            params['VK_SERVICE'] == '1901'
+          end
+
           def currency
             params['VK_CURR']
           end
@@ -94,10 +98,10 @@ module ActiveMerchant #:nodoc:
           private
           # Take the posted data and move the relevant data into a hash
           # No parsing since we're already expecting a hash.
-          def parse(params)
-            raise(ArgumentError, 'Need a hash') unless params.is_a?(Hash)
-            @params = params
-          end
+          #def parse(params)
+          #  raise(ArgumentError, 'Need a hash') unless params.is_a?(Hash)
+          #  @params = params
+          #end
         end
       end
     end
