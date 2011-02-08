@@ -7,7 +7,7 @@ module ActiveMerchant #:nodoc:
           include Banklink::Helper
 
           def vk_charset
-            'UTF-8'
+            'ISO-8859-13'
           end
 
           def vk_charset_param
