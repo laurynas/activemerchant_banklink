@@ -16,13 +16,13 @@ module ActiveMerchant #:nodoc:
             # use:
             #   notify = SwedbankLtu::Notification.new(params)
             #when 'HP' then SwedbankLtu
-            
+
       			#when '70440' then SebLtu
             #when 'SMPOLT22' then DanskeLtu
             #when 'SNORLT22' then SnorasLtu
             #when '112029720' then DnbnordLtu
-            #when '70100' then UbLtu            
-			
+            #when '70100' then UbLtu
+
         #    else raise(ArgumentError, "unknown sender id: #{params['VK_SND_ID']}")
         #  end
         #end
@@ -103,13 +103,13 @@ module ActiveMerchant #:nodoc:
         # where:
         # || is string concatenation mark
         # x1, x2, ..., xn are parameters of the query
-        # p(x) is length of the field x represented by three digits
+        # p(x) is the length of the field x in bytes, represented by three digits
         # d is RSA secret exponent
         # n is RSA modulus
         module Common
-          # p(x) is length of the field x represented by three digits
+          # p(x) is the length of the field x in bytes, represented by three digits
           def func_p(val)
-            sprintf("%03i", val.size)
+            sprintf("%03i", val.bytesize)
           end
 
           # Generate a string to be signed out of service message parameters.
