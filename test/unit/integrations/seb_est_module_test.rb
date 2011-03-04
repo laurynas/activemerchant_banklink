@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+#require File.dirname(__FILE__) + '/../../test_helper'
+require 'test_helper'
 
 class SebEstModuleTest < Test::Unit::TestCase
   include ActiveMerchant::Billing::Integrations
@@ -8,3 +9,4 @@ class SebEstModuleTest < Test::Unit::TestCase
     assert_instance_of SebEst::Notification, SebEst.notification('name=cody')
   end
 end
+
