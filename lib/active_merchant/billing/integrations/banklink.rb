@@ -27,72 +27,6 @@ module ActiveMerchant #:nodoc:
         #  end
         #end
 
-        # Define required fields for each service message.
-        # We need to know this in order to calculate VK_MAC
-        # from a given hash of parameters.
-        # Order of the parameters is important.
-        mattr_accessor :required_service_params
-        self.required_service_params = {
-          1001 => [
-            'VK_SERVICE',
-            'VK_VERSION',
-            'VK_SND_ID',
-            'VK_STAMP',
-            'VK_AMOUNT',
-            'VK_CURR',
-            'VK_ACC',
-            'VK_NAME',
-            'VK_REF',
-            'VK_MSG'],
-          1002 => [
-            'VK_SERVICE',
-            'VK_VERSION',
-            'VK_SND_ID',
-            'VK_STAMP',
-            'VK_AMOUNT',
-            'VK_CURR',
-            'VK_REF',
-            'VK_MSG' ],
-          1101 => [
-            'VK_SERVICE',
-            'VK_VERSION',
-            'VK_SND_ID',
-            'VK_REC_ID',
-            'VK_STAMP',
-            'VK_T_NO',
-            'VK_AMOUNT',
-            'VK_CURR',
-            'VK_REC_ACC',
-            'VK_REC_NAME',
-            'VK_SND_ACC',
-            'VK_SND_NAME',
-            'VK_REF',
-            'VK_MSG',
-            'VK_T_DATE'],
-          1201 => [
-            'VK_SERVICE',
-            'VK_VERSION',
-            'VK_SND_ID',
-            'VK_REC_ID',
-            'VK_STAMP',
-            'VK_AMOUNT',
-            'VK_CURR',
-            'VK_REC_ACC',
-            'VK_REC_NAME',
-            'VK_SND_ACC',
-            'VK_SND_NAME',
-            'VK_REF',
-            'VK_MSG'],
-          1901 => [
-            'VK_SERVICE',
-            'VK_VERSION',
-            'VK_SND_ID',
-            'VK_REC_ID',
-            'VK_STAMP',
-            'VK_REF',
-            'VK_MSG']
-        }
-
         # Calculation using method VK_VERSION=008:
         # VK_MAC is RSA signature of the request fields coded into BASE64.
         # VK_MAC will be calculated using secret key of the sender using RSA. Signature will
@@ -107,6 +41,85 @@ module ActiveMerchant #:nodoc:
         # d is RSA secret exponent
         # n is RSA modulus
         module Common
+          # Define required fields for each service message.
+          # We need to know this in order to calculate VK_MAC
+          # from a given hash of parameters.
+          # Order of the parameters is important.
+          def required_service_params
+            {
+              1001 => [
+                'VK_SERVICE',
+                'VK_VERSION',
+                'VK_SND_ID',
+                'VK_STAMP',
+                'VK_AMOUNT',
+                'VK_CURR',
+                'VK_ACC',
+                'VK_NAME',
+                'VK_REF',
+                'VK_MSG'],
+              2001 => [
+                'VK_SERVICE',
+                'VK_VERSION',
+                'VK_SND_ID',
+                'VK_STAMP',
+                'VK_AMOUNT',
+                'VK_CURR',
+                'VK_ACC',
+                'VK_PANK',
+                'VK_NAME',
+                'VK_REF',
+                'VK_MSG'],
+              1002 => [
+                'VK_SERVICE',
+                'VK_VERSION',
+                'VK_SND_ID',
+                'VK_STAMP',
+                'VK_AMOUNT',
+                'VK_CURR',
+                'VK_REF',
+                'VK_MSG' ],
+              1101 => [
+                'VK_SERVICE',
+                'VK_VERSION',
+                'VK_SND_ID',
+                'VK_REC_ID',
+                'VK_STAMP',
+                'VK_T_NO',
+                'VK_AMOUNT',
+                'VK_CURR',
+                'VK_REC_ACC',
+                'VK_REC_NAME',
+                'VK_SND_ACC',
+                'VK_SND_NAME',
+                'VK_REF',
+                'VK_MSG',
+                'VK_T_DATE'],
+              1201 => [
+                'VK_SERVICE',
+                'VK_VERSION',
+                'VK_SND_ID',
+                'VK_REC_ID',
+                'VK_STAMP',
+                'VK_AMOUNT',
+                'VK_CURR',
+                'VK_REC_ACC',
+                'VK_REC_NAME',
+                'VK_SND_ACC',
+                'VK_SND_NAME',
+                'VK_REF',
+                'VK_MSG'],
+              1901 => [
+                'VK_SERVICE',
+                'VK_VERSION',
+                'VK_SND_ID',
+                'VK_REC_ID',
+                'VK_STAMP',
+                'VK_REF',
+                'VK_MSG']
+            }
+          end
+
           # p(x) is the length of the field x in bytes, represented by three digits
           def func_p(val)
             sprintf("%03i", val.bytesize)
@@ -120,7 +133,7 @@ module ActiveMerchant #:nodoc:
           # '003val1003val2006value3'
           def generate_data_string(service_msg_number, sigparams)
             str = ''
-            Banklink.required_service_params[Integer(service_msg_number)].each do |param|
+            required_service_params[Integer(service_msg_number)].each do |param|
               val = sigparams[param].to_s # nil goes to ''
               str << func_p(val) << val
             end

@@ -4,4 +4,6 @@ doc
 .bundle
 .loadpath
 .project
+.idea
+Gemfile.lock
 

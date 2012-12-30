@@ -7,7 +7,8 @@ Gem is originally based on ActiveMerchant {fork}[https://github.com/indrekj/acti
 == Supported banks
 
  Swedbank (Estonia, Lithuania)
- SEB (Estonia)
+ SEB (Estonia, Lithuania)
+ DNB (Lithuania)
 
 == Installation
 
